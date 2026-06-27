@@ -1,11 +1,18 @@
 namespace CatchIQ.API.Models.Enums;
 public enum BaitType
 {
-    Topwater,
-    SoftPlastic,
-    Jig,
-    Spinnerbait,
-    Crankbait,
+    Propbait,
+    Frog,
+    OtherTopwater,
     Chatterbait,
+    Crankbait,
+    Jerkbait,
+    Glidebait,
+    LiplessCrankbait,
+    Spinnerbait,
+    Jig,
+    SoftPlastic,
     Swimbait,
+    Finesse,
+    Other
 }

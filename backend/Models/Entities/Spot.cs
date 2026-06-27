@@ -7,8 +7,8 @@ public class Spot
     public int UserId { get; set; } // Foreign key to the ApplicationUser entity
     public ApplicationUser User { get; set; } = null!; // Navigation property to the ApplicationUser entity
     public string Name { get; set; } = null!;
-    public string Latitude { get; set; } = null!;
-    public string Longitude { get; set; } = null!;
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
     public WaterBodyType WaterBodyType { get; set; }
-    public string Notes { get; set; } = null!;
+    public string? Notes { get; set; } 
 }
