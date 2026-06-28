@@ -14,4 +14,5 @@ public class Bait
     public RigStyle? RigStyle { get; set; }
     public string? Trailer { get; set; }
     public string? Notes { get; set; }
+    public ICollection<Catch> Catches { get; set; } = new List<Catch>();
 }

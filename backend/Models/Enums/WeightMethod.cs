@@ -1,7 +1,7 @@
 namespace CatchIQ.API.Models.Enums;
 public enum WeightMethod
 {
-    Exact,
-    Estimated,
-    NoWeight    
+    Exact = 0,
+    Estimated = 1,
+    NoWeight = 2
 }

@@ -11,4 +11,5 @@ public class Spot
     public double Longitude { get; set; }
     public WaterBodyType WaterBodyType { get; set; }
     public string? Notes { get; set; } 
+    public ICollection<Catch> Catches { get; set; } = new List<Catch>();
 }
