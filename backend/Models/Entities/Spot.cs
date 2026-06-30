@@ -4,8 +4,8 @@ namespace CatchIQ.API.Models.Entities;
 public class Spot
 {
     public int Id { get; set; }
-    public int UserId { get; set; } // Foreign key to the ApplicationUser entity
-    public ApplicationUser User { get; set; } = null!; // Navigation property to the ApplicationUser entity
+    public int UserId { get; set; }
+    public ApplicationUser User { get; set; } = null!;
     public string Name { get; set; } = null!;
     public double Latitude { get; set; }
     public double Longitude { get; set; }
