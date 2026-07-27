@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi;
+using CatchIQ.API.Engines.Interfaces;
+using CatchIQ.API.Engines;
+using CatchIQ.API.Managers.Interfaces;
+using CatchIQ.API.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.AddScoped<ITokenEngine, TokenEngine>();
+builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 // JWT
 builder.Services.AddAuthentication(options =>

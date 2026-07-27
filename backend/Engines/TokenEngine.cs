@@ -7,14 +7,9 @@ using CatchIQ.API.Models.Entities;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CatchIQ.API.Engines;
-public class TokenEngine : ITokenEngine
+public class TokenEngine(IConfiguration configuration) : ITokenEngine
 {
-    private readonly IConfiguration _configuration;
-
-    public TokenEngine(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
+    private readonly IConfiguration _configuration = configuration;
 
     public AuthResponseDto GenerateToken(ApplicationUser user)
     {
