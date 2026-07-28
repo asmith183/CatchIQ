@@ -10,6 +10,8 @@ using CatchIQ.API.Engines.Interfaces;
 using CatchIQ.API.Engines;
 using CatchIQ.API.Managers.Interfaces;
 using CatchIQ.API.Managers;
+using CatchIQ.API.Accessors.Interfaces;
+using CatchIQ.API.Accessors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+///
+/// DI
+/// 
+
+// Accessors
+builder.Services.AddScoped<ISpeciesAccessor, SpeciesAccessor>();
+
+// Managers
+builder.Services.AddScoped<ISpeciesManager, SpeciesManager>();
+
+// Engines
 builder.Services.AddScoped<ITokenEngine, TokenEngine>();
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
