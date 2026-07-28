@@ -59,5 +59,28 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>
             e.Property(c => c.WeightLbs)
              .HasColumnType("decimal(5,2)");
         });
+
+        // Species Seed Data
+        builder.Entity<Species>(e =>
+        {
+            e.HasData(
+                new Species { Id = 1, Name = "Largemouth Bass" },
+                new Species { Id = 2, Name = "Smallmouth Bass" },
+                new Species { Id = 3, Name = "Channel Catfish" },
+                new Species { Id = 4, Name = "Northern Pike" },
+                new Species { Id = 5, Name = "Walleye" },
+                new Species { Id = 6, Name = "Flathead Catfish" },
+                new Species { Id = 7, Name = "Blue Catfish" },
+                new Species { Id = 8, Name = "Freshwater Drum" },
+                new Species { Id = 9, Name = "Bluegill" },
+                new Species { Id = 10, Name = "Crappie" },
+                new Species { Id = 11, Name = "Perch" },
+                new Species { Id = 12, Name = "Carp" },
+                new Species { Id = 13, Name = "Muskellunge" },
+                new Species { Id = 14, Name = "Striped Bass" },
+                new Species { Id = 15, Name = "White Bass" },
+                new Species { Id = 16, Name = "Bowfin" }
+            );
+        });
     }
 }
