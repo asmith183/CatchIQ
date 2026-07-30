@@ -30,13 +30,15 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
 
 // Accessors
 builder.Services.AddScoped<ISpeciesAccessor, SpeciesAccessor>();
+builder.Services.AddScoped<ICatchAccessor, CatchAccessor>();
 
 // Managers
+builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<ISpeciesManager, SpeciesManager>();
+builder.Services.AddScoped<ICatchManager, CatchManager>();
 
 // Engines
 builder.Services.AddScoped<ITokenEngine, TokenEngine>();
-builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 // JWT
 builder.Services.AddAuthentication(options =>
