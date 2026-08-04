@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using CatchIQ.API.Exceptions;
 using CatchIQ.API.Managers.Interfaces;
 using CatchIQ.API.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -35,21 +36,35 @@ public class CatchController(ICatchManager catchManager) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(CreateCatchDto createCatchDto)
     {
-        var result = await _catchManager.CreateAsync(createCatchDto, GetUserId());
-        
-        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+        try
+        {
+            var result = await _catchManager.CreateAsync(createCatchDto, GetUserId());
+
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+        }
+        catch (SpeciesNotFoundException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, UpdateCatchDto updateCatchDto)
     {
-        var result = await _catchManager.UpdateAsync(id, updateCatchDto, GetUserId());
+        try
+        {
+            var result = await _catchManager.UpdateAsync(id, updateCatchDto, GetUserId());
 
-        if (result == null) 
-            return NotFound();
-        else 
-            return Ok(result);
-    } 
+            if (result == null)
+                return NotFound();
+            else
+                return Ok(result);
+        }
+        catch (SpeciesNotFoundException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)

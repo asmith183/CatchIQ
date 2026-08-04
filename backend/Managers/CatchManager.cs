@@ -1,12 +1,14 @@
 using CatchIQ.API.Accessors.Interfaces;
+using CatchIQ.API.Exceptions;
 using CatchIQ.API.Managers.Interfaces;
 using CatchIQ.API.Models.DTOs;
 using CatchIQ.API.Models.Entities;
 
 namespace CatchIQ.API.Managers;
-public class CatchManager(ICatchAccessor catchAccessor) : ICatchManager
+public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor speciesAccessor) : ICatchManager
 {
     private readonly ICatchAccessor _catchAccessor = catchAccessor;
+    private readonly ISpeciesAccessor _speciesAccessor = speciesAccessor;
 
     public async Task<List<CatchResponseDto>> GetAllByUserAsync(int userId)
     {
@@ -26,6 +28,10 @@ public class CatchManager(ICatchAccessor catchAccessor) : ICatchManager
 
     public async Task<CatchResponseDto> CreateAsync(CreateCatchDto createCatchDto, int userId)
     {
+        var species = await _speciesAccessor.GetByIdAsync(createCatchDto.SpeciesId);
+        if (species == null)
+            throw new SpeciesNotFoundException(createCatchDto.SpeciesId);
+
         var catchEntity = new Catch
         {
             UserId = userId,
@@ -48,6 +54,10 @@ public class CatchManager(ICatchAccessor catchAccessor) : ICatchManager
     
     public async Task<CatchResponseDto?> UpdateAsync(int catchId, UpdateCatchDto updateCatchDto, int userId)
     {
+        var species = await _speciesAccessor.GetByIdAsync(updateCatchDto.SpeciesId);
+        if (species == null)
+            throw new SpeciesNotFoundException(updateCatchDto.SpeciesId);
+
         var catchEntity = new Catch
         {
             Id = catchId,
