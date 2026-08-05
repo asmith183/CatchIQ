@@ -9,4 +9,5 @@ public interface ISpotAccessor
     Task<Spot> CreateAsync(Spot spotEntity);
     Task<Spot?> UpdateAsync(Spot spotEntity);
     Task<bool> DeleteAsync(int spotId, int userId);
+    Task<bool> HasCatchesAsync(int spotId);
 }

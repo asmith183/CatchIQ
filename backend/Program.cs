@@ -31,11 +31,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
 // Accessors
 builder.Services.AddScoped<ISpeciesAccessor, SpeciesAccessor>();
 builder.Services.AddScoped<ICatchAccessor, CatchAccessor>();
+builder.Services.AddScoped<ISpotAccessor, SpotAccessor>();
 
 // Managers
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<ISpeciesManager, SpeciesManager>();
 builder.Services.AddScoped<ICatchManager, CatchManager>();
+builder.Services.AddScoped<ISpotManager, SpotManager>();
 
 // Engines
 builder.Services.AddScoped<ITokenEngine, TokenEngine>();
