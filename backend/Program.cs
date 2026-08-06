@@ -32,12 +32,14 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
 builder.Services.AddScoped<ISpeciesAccessor, SpeciesAccessor>();
 builder.Services.AddScoped<ICatchAccessor, CatchAccessor>();
 builder.Services.AddScoped<ISpotAccessor, SpotAccessor>();
+builder.Services.AddScoped<IBaitAccessor, BaitAccessor>();
 
 // Managers
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<ISpeciesManager, SpeciesManager>();
 builder.Services.AddScoped<ICatchManager, CatchManager>();
 builder.Services.AddScoped<ISpotManager, SpotManager>();
+builder.Services.AddScoped<IBaitManager, BaitManager>();
 
 // Engines
 builder.Services.AddScoped<ITokenEngine, TokenEngine>();
