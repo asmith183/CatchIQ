@@ -46,6 +46,14 @@ public class CatchController(ICatchManager catchManager) : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+        catch (SpotNotFoundException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (BaitNotFoundException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut("{id}")]
@@ -61,6 +69,14 @@ public class CatchController(ICatchManager catchManager) : ControllerBase
                 return Ok(result);
         }
         catch (SpeciesNotFoundException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (SpotNotFoundException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (BaitNotFoundException ex)
         {
             return BadRequest(ex.Message);
         }

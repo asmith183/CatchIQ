@@ -5,10 +5,12 @@ using CatchIQ.API.Models.DTOs;
 using CatchIQ.API.Models.Entities;
 
 namespace CatchIQ.API.Managers;
-public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor speciesAccessor) : ICatchManager
+public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor speciesAccessor, ISpotAccessor spotAccessor, IBaitAccessor baitAccessor) : ICatchManager
 {
     private readonly ICatchAccessor _catchAccessor = catchAccessor;
     private readonly ISpeciesAccessor _speciesAccessor = speciesAccessor;
+    private readonly ISpotAccessor _spotAccessor = spotAccessor;
+    private readonly IBaitAccessor _baitAccessor = baitAccessor;
 
     public async Task<List<CatchResponseDto>> GetAllByUserAsync(int userId)
     {
@@ -31,6 +33,20 @@ public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor species
         var species = await _speciesAccessor.GetByIdAsync(createCatchDto.SpeciesId);
         if (species == null)
             throw new SpeciesNotFoundException(createCatchDto.SpeciesId);
+
+        if (createCatchDto.SpotId.HasValue)
+        {
+            var spot = await _spotAccessor.GetByIdAsync(createCatchDto.SpotId.Value, userId);
+            if (spot == null)
+                throw new SpotNotFoundException(createCatchDto.SpotId.Value);
+        }
+
+        if (createCatchDto.BaitId.HasValue)
+        {
+            var bait = await _baitAccessor.GetByIdAsync(createCatchDto.BaitId.Value, userId);
+            if (bait == null)
+                throw new BaitNotFoundException(createCatchDto.BaitId.Value);
+        }
 
         var catchEntity = new Catch
         {
@@ -57,6 +73,20 @@ public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor species
         var species = await _speciesAccessor.GetByIdAsync(updateCatchDto.SpeciesId);
         if (species == null)
             throw new SpeciesNotFoundException(updateCatchDto.SpeciesId);
+
+        if (updateCatchDto.SpotId.HasValue)
+        {
+            var spot = await _spotAccessor.GetByIdAsync(updateCatchDto.SpotId.Value, userId);
+            if (spot == null)
+                throw new SpotNotFoundException(updateCatchDto.SpotId.Value);
+        }
+
+        if (updateCatchDto.BaitId.HasValue)
+        {
+            var bait = await _baitAccessor.GetByIdAsync(updateCatchDto.BaitId.Value, userId);
+            if (bait == null)
+                throw new BaitNotFoundException(updateCatchDto.BaitId.Value);
+        }
 
         var catchEntity = new Catch
         {
