@@ -1,4 +1,5 @@
-# CatchIQ
+[![CI](https://github.com/asmith183/CatchIQ/actions/workflows/ci.yml/badge.svg)](https://github.com/asmith183/CatchIQ/actions/workflows/ci.yml)
+# CatchIQ 
 
 A fishing catch tracking app. Log catches with species, bait, weather, and location data, then use AI
 analytics over your catch history to find patterns and catch more fish.
