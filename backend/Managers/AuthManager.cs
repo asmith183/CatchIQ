@@ -11,7 +11,7 @@ public class AuthManager(UserManager<ApplicationUser> userManager, SignInManager
     private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
     private readonly ITokenEngine _tokenEngine = tokenEngine;
 
-    public async Task<AuthResponseDto> RegisterAsync(RegisterDto registerDto)
+    public async Task<(AuthResponseDto? Result, IReadOnlyList<string> Errors)> RegisterAsync(RegisterDto registerDto)
     {
         var userInfo = new ApplicationUser
         {
@@ -22,9 +22,11 @@ public class AuthManager(UserManager<ApplicationUser> userManager, SignInManager
         var result = await _userManager.CreateAsync(userInfo, registerDto.Password);
 
         if (result.Succeeded)
-            return _tokenEngine.GenerateToken(userInfo);
+            return (_tokenEngine.GenerateToken(userInfo), []);
 
-        throw new Exception("Registration failed");
+        // Identity's own descriptions ("Passwords must have at least one digit.",
+        // "Email 'x' is already taken.") are user-facing, so pass them through.
+        return (null, result.Errors.Select(e => e.Description).ToList());
     }
 
     public async Task<AuthResponseDto?> LoginAsync(LoginDto loginDto)
