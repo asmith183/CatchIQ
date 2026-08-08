@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/backend/">
+    <Project Path="backend/CatchIQ.API.csproj" />
+  </Folder>
+</Solution>
