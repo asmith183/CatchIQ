@@ -1,0 +1,30 @@
+{
+  "runtime": "Net100",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "http://localhost:5045/swagger/v1/swagger.json"
+    }
+  },
+  "codeGenerators": {
+    "openApiToTypeScriptClient": {
+      "className": "{controller}Client",
+      "operationGenerationMode": "MultipleClientsFromOperationId",
+      "template": "Fetch",
+      "httpClass": "HttpClient",
+      "promiseType": "Promise",
+      "exceptionClass": "ApiException",
+      "typeScriptVersion": 5.0,
+      "dateTimeType": "Date",
+      "nullValue": "Undefined",
+      "generateClientClasses": true,
+      "generateClientInterfaces": true,
+      "generateOptionalParameters": true,
+      "generateDtoTypes": true,
+      "typeStyle": "Interface",
+      "enumStyle": "StringLiteral",
+      "useAbortSignal": true,
+      "markOptionalProperties": false,
+      "output": "src/api/generated.ts"
+    }
+  }
+}

@@ -11,7 +11,7 @@ public class AuthController(IAuthManager authManager) : ControllerBase
     private readonly IAuthManager _authManager = authManager;
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(RegisterDto registerDto)
+    public async Task<ActionResult<AuthResponseDto>> Register(RegisterDto registerDto)
     {
         var result = await _authManager.RegisterAsync(registerDto);
 
@@ -19,7 +19,7 @@ public class AuthController(IAuthManager authManager) : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginDto loginDto)
+    public async Task<ActionResult<AuthResponseDto>> Login(LoginDto loginDto)
     {
         var result = await _authManager.LoginAsync(loginDto);
 

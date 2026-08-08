@@ -15,7 +15,7 @@ public class SpotController(ISpotManager spotManager) : ControllerBase
     private readonly ISpotManager _spotManager = spotManager;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<List<SpotResponseDto>>> GetAll()
     {
         var result = await _spotManager.GetAllByUserAsync(GetUserId());
 
@@ -23,7 +23,7 @@ public class SpotController(ISpotManager spotManager) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<ActionResult<SpotResponseDto>> GetById(int id)
     {
         var result = await _spotManager.GetByIdAsync(id, GetUserId());
 
@@ -34,7 +34,7 @@ public class SpotController(ISpotManager spotManager) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateSpotDto createSpotDto)
+    public async Task<ActionResult<SpotResponseDto>> Create(CreateSpotDto createSpotDto)
     {
         var result = await _spotManager.CreateAsync(createSpotDto, GetUserId());
 
@@ -42,7 +42,7 @@ public class SpotController(ISpotManager spotManager) : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UpdateSpotDto updateSpotDto)
+    public async Task<ActionResult<SpotResponseDto>> Update(int id, UpdateSpotDto updateSpotDto)
     {
         var result = await _spotManager.UpdateAsync(id, updateSpotDto, GetUserId());
 

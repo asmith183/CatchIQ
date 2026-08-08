@@ -15,7 +15,7 @@ public class BaitController(IBaitManager baitManager) : ControllerBase
     private readonly IBaitManager _baitManager = baitManager;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<List<BaitResponseDto>>> GetAll()
     {
         var result = await _baitManager.GetAllByUserAsync(GetUserId());
 
@@ -23,7 +23,7 @@ public class BaitController(IBaitManager baitManager) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<ActionResult<BaitResponseDto>> GetById(int id)
     {
         var result = await _baitManager.GetByIdAsync(id, GetUserId());
 
@@ -34,7 +34,7 @@ public class BaitController(IBaitManager baitManager) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateBaitDto createBaitDto)
+    public async Task<ActionResult<BaitResponseDto>> Create(CreateBaitDto createBaitDto)
     {
         var result = await _baitManager.CreateAsync(createBaitDto, GetUserId());
 
@@ -42,7 +42,7 @@ public class BaitController(IBaitManager baitManager) : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UpdateBaitDto updateBaitDto)
+    public async Task<ActionResult<BaitResponseDto>> Update(int id, UpdateBaitDto updateBaitDto)
     {
         var result = await _baitManager.UpdateAsync(id, updateBaitDto, GetUserId());
 

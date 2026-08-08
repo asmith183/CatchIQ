@@ -15,7 +15,7 @@ public class CatchController(ICatchManager catchManager) : ControllerBase
     private readonly ICatchManager _catchManager = catchManager;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<List<CatchResponseDto>>> GetAll()
     {
         var result = await _catchManager.GetAllByUserAsync(GetUserId());
 
@@ -23,7 +23,7 @@ public class CatchController(ICatchManager catchManager) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<ActionResult<CatchResponseDto>> GetById(int id)
     {
         var result = await _catchManager.GetByIdAsync(id, GetUserId());
 
@@ -34,7 +34,7 @@ public class CatchController(ICatchManager catchManager) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateCatchDto createCatchDto)
+    public async Task<ActionResult<CatchResponseDto>> Create(CreateCatchDto createCatchDto)
     {
         try
         {
@@ -57,7 +57,7 @@ public class CatchController(ICatchManager catchManager) : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UpdateCatchDto updateCatchDto)
+    public async Task<ActionResult<CatchResponseDto>> Update(int id, UpdateCatchDto updateCatchDto)
     {
         try
         {

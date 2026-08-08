@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using System.Text.Json.Serialization;
 using CatchIQ.API.Engines.Interfaces;
 using CatchIQ.API.Engines;
 using CatchIQ.API.Managers.Interfaces;
@@ -65,7 +67,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddControllers();
+// Serialize enums as their names ("SoftPlastic") rather than ints, so the OpenAPI
+// spec carries the names and NSwag can generate string-literal union types.
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -78,6 +84,17 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    // Emit operationIds as "{Controller}_{Action}" so NSwag can split them into
+    // one client class per controller with clean method names (BaitClient.getAll()).
+    c.CustomOperationIds(apiDescription =>
+        apiDescription.ActionDescriptor is ControllerActionDescriptor descriptor
+            ? $"{descriptor.ControllerName}_{descriptor.ActionName}"
+            : null);
+
+    // Treat non-nullable C# properties as `required` in the schema, so NSwag
+    // generates `id: number` rather than `id?: number | undefined`.
+    c.SupportNonNullableReferenceTypes();
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",

@@ -1,4 +1,5 @@
 using CatchIQ.API.Managers.Interfaces;
+using CatchIQ.API.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ public class SpeciesController(ISpeciesManager speciesManager) : ControllerBase
     private readonly ISpeciesManager _speciesManager = speciesManager;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<List<SpeciesResponseDto>>> GetAll()
     {
         var result = await _speciesManager.GetAllAsync();
 
@@ -20,7 +21,7 @@ public class SpeciesController(ISpeciesManager speciesManager) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<ActionResult<SpeciesResponseDto>> GetById(int id)
     {
         var result = await _speciesManager.GetByIdAsync(id);
 

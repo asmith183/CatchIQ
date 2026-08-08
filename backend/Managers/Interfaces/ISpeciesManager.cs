@@ -1,8 +1,8 @@
-using CatchIQ.API.Models.Entities;
+using CatchIQ.API.Models.DTOs;
 
 namespace CatchIQ.API.Managers.Interfaces;
 public interface ISpeciesManager
 {
-    Task<List<Species>> GetAllAsync();
-    Task<Species?> GetByIdAsync(int id);
+    Task<List<SpeciesResponseDto>> GetAllAsync();
+    Task<SpeciesResponseDto?> GetByIdAsync(int id);
 }
