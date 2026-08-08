@@ -13,7 +13,10 @@ public class AuthController(IAuthManager authManager) : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<AuthResponseDto>> Register(RegisterDto registerDto)
     {
-        var result = await _authManager.RegisterAsync(registerDto);
+        var (result, errors) = await _authManager.RegisterAsync(registerDto);
+
+        if (result == null)
+            return BadRequest(new { errors });
 
         return Ok(result);
     }
