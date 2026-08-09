@@ -5,7 +5,7 @@ backend/*.user
 backend/appsettings.Development.json
 
 # React
-frontend/node_modules/
+node_modules/
 frontend/dist/
 
 # General
