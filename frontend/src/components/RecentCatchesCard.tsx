@@ -15,15 +15,15 @@ function RecentCatchesCard({ catches, species }: Props) {
     return (
         <Card title="Recent Catches">
             {recent.length === 0 ? (
-                <p className="mt-2 text-sm text-emerald-300">Nothing logged yet.</p>
+                <p className="mt-2 text-base text-muted">Nothing logged yet.</p>
             ) : (
-                <ul className="mt-2 divide-y divide-emerald-800">
+                <ul className="mt-2 divide-y divide-line">
                     {recent.map((c) => (
-                        <li key={c.id} className="flex items-baseline justify-between gap-2 py-2 text-sm">
+                        <li key={c.id} className="flex items-baseline justify-between gap-2 py-3 text-base">
                             <span className="truncate">
                                 {species.find((s) => s.id === c.speciesId)?.name ?? 'Unknown'}
                             </span>
-                            <span className="shrink-0 text-emerald-300">
+                            <span className="shrink-0 text-muted">
                                 {c.weightLbs === undefined ? '—' : `${c.weightLbs.toFixed(1)} lb`}
                                 {' · '}
                                 {c.caughtAt.toLocaleDateString()}
@@ -33,7 +33,7 @@ function RecentCatchesCard({ catches, species }: Props) {
                 </ul>
             )}
 
-            <Link to="/history" className="mt-3 inline-block text-sm text-teal-400">View all</Link>
+            <Link to="/history" className="mt-auto inline-block pt-4 text-base text-icon">View all</Link>
         </Card>
     );
 }

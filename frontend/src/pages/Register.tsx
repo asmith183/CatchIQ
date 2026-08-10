@@ -55,9 +55,9 @@ function Register() {
     <div className="flex min-h-screen items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm space-y-4 rounded-lg border border-emerald-800 bg-emerald-900 p-8"
+        className="w-full max-w-sm space-y-4 rounded-lg border border-line bg-panel p-8"
       >
-        <h1 className="text-2xl font-bold text-emerald-50">Create an account</h1>
+        <h1 className="text-2xl font-bold text-heading">Create an account</h1>
 
         <TextField
           id="username"
@@ -88,19 +88,19 @@ function Register() {
           onChange={setPassword}
         />
 
-        {error !== null && <p className="text-sm text-red-600">{error}</p>}
+        {error !== null && <p className="text-sm text-danger">{error}</p>}
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded bg-emerald-600 py-2 text-white disabled:opacity-50"
+          className="w-full rounded bg-primary py-2 text-heading hover:brightness-110 disabled:opacity-50"
         >
           {isSubmitting ? 'Creating account…' : 'Create account'}
         </button>
 
-        <p className="text-sm text-emerald-50">
+        <p className="text-sm text-heading">
           Already have an account?{' '}
-          <Link to="/login" className="text-teal-400 underline">
+          <Link to="/login" className="text-icon underline">
             Log in
           </Link>
         </p>

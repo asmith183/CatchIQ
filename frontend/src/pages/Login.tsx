@@ -39,9 +39,9 @@ function Login() {
     <div className="flex min-h-screen items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm space-y-4 rounded-lg border border-emerald-800 bg-emerald-900 p-8"
+        className="w-full max-w-sm space-y-4 rounded-lg border border-line bg-panel p-8"
       >
-        <h1 className="text-2xl font-bold text-emerald-50">Welcome back</h1>
+        <h1 className="text-2xl font-bold text-heading">Welcome back</h1>
 
         <TextField
           id="email"
@@ -63,19 +63,19 @@ function Login() {
           onChange={setPassword}
         />
 
-        {error !== null && <p className="text-sm text-red-600">{error}</p>}
+        {error !== null && <p className="text-sm text-danger">{error}</p>}
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded bg-emerald-600 py-2 text-white disabled:opacity-50"
+          className="w-full rounded bg-primary py-2 text-heading hover:brightness-110 disabled:opacity-50"
         >
           {isSubmitting ? 'Logging in…' : 'Log in'}
         </button>
 
-        <p className="text-sm text-emerald-50">
+        <p className="text-sm text-heading">
           Need an account?{' '}
-          <Link to="/register" className="text-teal-400 underline">
+          <Link to="/register" className="text-icon underline">
             Create one
           </Link>
         </p>

@@ -27,8 +27,8 @@ function BestSpotCard({ catches, spots }: Props) {
 
     return (
         <Card title="Best Spot">
-            <p className="mt-2 truncate text-4xl font-bold">{best?.name ?? '—'}</p>
-            <p className="mt-1 text-sm text-emerald-300">
+            <p className="mt-2 truncate text-5xl font-bold text-heading">{best?.name ?? '—'}</p>
+            <p className="mt-2 text-base text-muted">
                 {best ? `${bestCount} ${bestCount === 1 ? 'catch' : 'catches'}` : 'No catches logged to a spot'}
             </p>
         </Card>
