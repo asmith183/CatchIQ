@@ -10,24 +10,24 @@ function Dashboard() {
     const { data, loading, error } = useDashboardData();
 
     if (loading) {
-        return <p className="py-10 text-emerald-300">Loading your dashboard…</p>;
+        return <p className="py-10 text-muted">Loading your dashboard…</p>;
     }
 
     if (error !== null || data === null) {
-        return <p className="py-10 text-red-300">{error ?? 'Could not load your dashboard.'}</p>;
+        return <p className="py-10 text-danger">{error ?? 'Could not load your dashboard.'}</p>;
     }
 
     return (
-        <div className="py-6">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
+        <div className="flex flex-1 flex-col py-8">
+            <h1 className="text-4xl font-bold text-heading">Dashboard</h1>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="mt-6 grid gap-6 md:grid-cols-3">
                 <TotalCatchesCard catches={data.catches} />
                 <PersonalBestCard catches={data.catches} species={data.species} />
                 <BestSpotCard catches={data.catches} spots={data.spots} />
             </div>
 
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="mt-6 grid gap-6 md:max-h-[498px] md:flex-1 md:grid-cols-3">
                 <RecentCatchesCard catches={data.catches} species={data.species} />
                 <InsightsCard />
                 <SpotsCard spots={data.spots} />

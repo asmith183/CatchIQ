@@ -21,7 +21,7 @@ function TextField({
 }: TextFieldProps) {
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-medium text-emerald-50">
+      <label htmlFor={id} className="block text-sm font-medium text-heading">
         {label}
       </label>
       <input
@@ -31,7 +31,7 @@ function TextField({
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded border border-emerald-700 bg-emerald-950 px-3 py-2 text-emerald-50 focus:border-emerald-400 focus:outline-none"
+        className="mt-1 w-full rounded border border-line bg-sunken px-3 py-2 text-heading focus:border-primary focus:outline-none"
       />
     </div>
   )

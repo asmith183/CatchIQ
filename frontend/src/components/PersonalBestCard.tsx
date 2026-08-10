@@ -24,12 +24,12 @@ function PersonalBestCard({ catches, species }: Props) {
 
     return (
         <Card title="Personal Best">
-            <p className="mt-2 text-4xl font-bold">{best === null ? '—' : `${best.toFixed(1)} lb`}</p>
+            <p className="mt-2 text-5xl font-bold text-heading">{best === null ? '—' : `${best.toFixed(1)} lb`}</p>
 
             <select
                 value={selectedId}
                 onChange={(e) => setSelectedId(Number(e.target.value))}
-                className="mt-3 w-full rounded border border-emerald-700 bg-emerald-950 px-2 py-1 text-sm"
+                className="mt-4 w-full rounded border border-line bg-sunken px-3 py-2 text-base text-heading [&>option]:bg-sunken [&>option]:text-heading"
             >
                 {caughtSpecies.length === 0 && <option value={0}>No catches yet</option>}
                 {caughtSpecies.map((s) => (

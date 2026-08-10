@@ -12,7 +12,7 @@ function SpotsCard({ spots }: { spots: SpotResponseDto[] }) {
 
     return (
         <Card title="Spots">
-            <div className="relative z-0 mt-2 h-48 overflow-hidden rounded">
+            <div className="relative z-0 mt-2 h-48 overflow-hidden rounded bg-sunken md:h-auto md:min-h-0 md:flex-1">
                 <MapContainer center={center} zoom={spots.length > 0 ? 9 : 3} scrollWheelZoom={false} className="h-full w-full">
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -23,7 +23,7 @@ function SpotsCard({ spots }: { spots: SpotResponseDto[] }) {
                             key={s.id}
                             center={[s.latitude, s.longitude]}
                             radius={6}
-                            pathOptions={{ color: '#2dd4bf', fillColor: '#2dd4bf', fillOpacity: 0.7 }}
+                            pathOptions={{ color: '#7fc49a', fillColor: '#7fc49a', fillOpacity: 0.7 }}
                         >
                             <Tooltip>{s.name}</Tooltip>
                         </CircleMarker>
@@ -31,10 +31,10 @@ function SpotsCard({ spots }: { spots: SpotResponseDto[] }) {
                 </MapContainer>
             </div>
 
-            <p className="mt-3 text-sm text-emerald-300">
+            <p className="mt-4 text-base text-muted">
                 {spots.length} {spots.length === 1 ? 'spot' : 'spots'} saved
                 {' · '}
-                <Link to="/spots" className="text-teal-400">Manage</Link>
+                <Link to="/spots" className="text-icon">Manage</Link>
             </p>
         </Card>
     );

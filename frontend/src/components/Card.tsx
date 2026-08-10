@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 
 function Card({ title, children }: { title: string; children: ReactNode }) {
     return (
-        <section className="rounded-lg border border-emerald-800 bg-emerald-900 p-4">
-            <h2 className="text-sm font-medium text-emerald-300">{title}</h2>
+        <section className="flex h-full flex-col rounded-lg border border-line bg-panel p-6">
+            <h2 className="text-xl font-medium text-muted">{title}</h2>
             {children}
         </section>
     );
