@@ -20,7 +20,7 @@ function RecentCatchesCard({ catches, species }: Props) {
                 <ul className="mt-2 divide-y divide-line">
                     {recent.map((c) => (
                         <li key={c.id} className="flex items-baseline justify-between gap-2 py-3 text-base">
-                            <span className="truncate">
+                            <span className="truncate text-heading">
                                 {species.find((s) => s.id === c.speciesId)?.name ?? 'Unknown'}
                             </span>
                             <span className="shrink-0 text-muted">

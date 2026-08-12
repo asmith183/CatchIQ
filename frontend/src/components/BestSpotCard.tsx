@@ -1,3 +1,4 @@
+import { MapPin } from 'lucide-react';
 import type { CatchResponseDto, SpotResponseDto } from '../api';
 import Card from './Card';
 
@@ -26,9 +27,9 @@ function BestSpotCard({ catches, spots }: Props) {
     const best = spots.find((s) => s.id === bestId);
 
     return (
-        <Card title="Best Spot">
-            <p className="mt-2 truncate text-5xl font-bold text-heading">{best?.name ?? '—'}</p>
-            <p className="mt-2 text-base text-muted">
+        <Card title="Best Spot" icon={MapPin}>
+            <p className="mt-2 break-words text-2xl font-bold text-heading">{best?.name ?? '—'}</p>
+            <p className="mt-2 text-sm text-muted">
                 {best ? `${bestCount} ${bestCount === 1 ? 'catch' : 'catches'}` : 'No catches logged to a spot'}
             </p>
         </Card>
