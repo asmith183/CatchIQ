@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Trophy } from 'lucide-react';
 import type { CatchResponseDto, SpeciesResponseDto } from '../api';
 import Card from './Card';
 
@@ -23,13 +24,13 @@ function PersonalBestCard({ catches, species }: Props) {
     const best = weights.length > 0 ? Math.max(...weights) : null;
 
     return (
-        <Card title="Personal Best">
-            <p className="mt-2 text-5xl font-bold text-heading">{best === null ? '—' : `${best.toFixed(1)} lb`}</p>
+        <Card title="Personal Best" icon={Trophy}>
+            <p className="mt-2 text-2xl font-bold text-heading">{best === null ? '—' : `${best.toFixed(1)} lb`}</p>
 
             <select
                 value={selectedId}
                 onChange={(e) => setSelectedId(Number(e.target.value))}
-                className="mt-4 w-full rounded border border-line bg-sunken px-3 py-2 text-base text-heading [&>option]:bg-sunken [&>option]:text-heading"
+                className="mt-4 w-full rounded border border-line bg-sunken px-3 py-2 text-sm text-heading [&>option]:bg-sunken [&>option]:text-heading"
             >
                 {caughtSpecies.length === 0 && <option value={0}>No catches yet</option>}
                 {caughtSpecies.map((s) => (
