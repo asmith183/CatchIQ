@@ -33,7 +33,10 @@ public class SpotController(ISpotManager spotManager) : ControllerBase
             return Ok(result);
     }
 
+    // Documents the 201 in the OpenAPI spec; without it Swagger assumes 200
+    // and the NSwag client treats the real 201 as an error.
     [HttpPost]
+    [ProducesResponseType(typeof(SpotResponseDto), StatusCodes.Status201Created)]
     public async Task<ActionResult<SpotResponseDto>> Create(CreateSpotDto createSpotDto)
     {
         var result = await _spotManager.CreateAsync(createSpotDto, GetUserId());

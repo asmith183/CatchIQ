@@ -45,6 +45,8 @@ builder.Services.AddScoped<IBaitManager, BaitManager>();
 
 // Engines
 builder.Services.AddScoped<ITokenEngine, TokenEngine>();
+builder.Services.AddHttpClient<IWeatherEngine, WeatherEngine>(client =>
+    client.Timeout = TimeSpan.FromSeconds(10));
 
 // JWT
 builder.Services.AddAuthentication(options =>
