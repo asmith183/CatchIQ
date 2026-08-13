@@ -33,7 +33,10 @@ public class BaitController(IBaitManager baitManager) : ControllerBase
             return Ok(result);
     }
 
+    // Documents the 201 in the OpenAPI spec; without it Swagger assumes 200
+    // and the NSwag client treats the real 201 as an error.
     [HttpPost]
+    [ProducesResponseType(typeof(BaitResponseDto), StatusCodes.Status201Created)]
     public async Task<ActionResult<BaitResponseDto>> Create(CreateBaitDto createBaitDto)
     {
         var result = await _baitManager.CreateAsync(createBaitDto, GetUserId());

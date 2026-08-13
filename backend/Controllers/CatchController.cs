@@ -33,7 +33,10 @@ public class CatchController(ICatchManager catchManager) : ControllerBase
             return Ok(result);
     }
 
+    // Documents the 201 in the OpenAPI spec; without it Swagger assumes 200
+    // and the NSwag client treats the real 201 as an error.
     [HttpPost]
+    [ProducesResponseType(typeof(CatchResponseDto), StatusCodes.Status201Created)]
     public async Task<ActionResult<CatchResponseDto>> Create(CreateCatchDto createCatchDto)
     {
         try

@@ -126,7 +126,7 @@ export interface IBaitClient {
 
     /**
      * @param body (optional) 
-     * @return OK
+     * @return Created
      */
     create(body?: CreateBaitDto | undefined, signal?: AbortSignal): Promise<BaitResponseDto>;
 
@@ -196,7 +196,7 @@ export class BaitClient implements IBaitClient {
 
     /**
      * @param body (optional) 
-     * @return OK
+     * @return Created
      */
     create(body?: CreateBaitDto | undefined, signal?: AbortSignal): Promise<BaitResponseDto> {
         let url_ = this.baseUrl + "/api/Bait";
@@ -222,11 +222,11 @@ export class BaitClient implements IBaitClient {
     protected processCreate(response: Response): Promise<BaitResponseDto> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
+        if (status === 201) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as BaitResponseDto;
-            return result200;
+            let result201: any = null;
+            result201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as BaitResponseDto;
+            return result201;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
@@ -368,7 +368,7 @@ export interface ICatchClient {
 
     /**
      * @param body (optional) 
-     * @return OK
+     * @return Created
      */
     create(body?: CreateCatchDto | undefined, signal?: AbortSignal): Promise<CatchResponseDto>;
 
@@ -438,7 +438,7 @@ export class CatchClient implements ICatchClient {
 
     /**
      * @param body (optional) 
-     * @return OK
+     * @return Created
      */
     create(body?: CreateCatchDto | undefined, signal?: AbortSignal): Promise<CatchResponseDto> {
         let url_ = this.baseUrl + "/api/Catch";
@@ -464,11 +464,11 @@ export class CatchClient implements ICatchClient {
     protected processCreate(response: Response): Promise<CatchResponseDto> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
+        if (status === 201) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as CatchResponseDto;
-            return result200;
+            let result201: any = null;
+            result201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as CatchResponseDto;
+            return result201;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
@@ -711,7 +711,7 @@ export interface ISpotClient {
 
     /**
      * @param body (optional) 
-     * @return OK
+     * @return Created
      */
     create(body?: CreateSpotDto | undefined, signal?: AbortSignal): Promise<SpotResponseDto>;
 
@@ -781,7 +781,7 @@ export class SpotClient implements ISpotClient {
 
     /**
      * @param body (optional) 
-     * @return OK
+     * @return Created
      */
     create(body?: CreateSpotDto | undefined, signal?: AbortSignal): Promise<SpotResponseDto> {
         let url_ = this.baseUrl + "/api/Spot";
@@ -807,11 +807,11 @@ export class SpotClient implements ISpotClient {
     protected processCreate(response: Response): Promise<SpotResponseDto> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
+        if (status === 201) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as SpotResponseDto;
-            return result200;
+            let result201: any = null;
+            result201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as SpotResponseDto;
+            return result201;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {

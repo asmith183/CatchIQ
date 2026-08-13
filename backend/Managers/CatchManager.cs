@@ -1,16 +1,19 @@
 using CatchIQ.API.Accessors.Interfaces;
+using CatchIQ.API.Engines.Interfaces;
 using CatchIQ.API.Exceptions;
 using CatchIQ.API.Managers.Interfaces;
+using CatchIQ.API.Models;
 using CatchIQ.API.Models.DTOs;
 using CatchIQ.API.Models.Entities;
 
 namespace CatchIQ.API.Managers;
-public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor speciesAccessor, ISpotAccessor spotAccessor, IBaitAccessor baitAccessor) : ICatchManager
+public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor speciesAccessor, ISpotAccessor spotAccessor, IBaitAccessor baitAccessor, IWeatherEngine weatherEngine) : ICatchManager
 {
     private readonly ICatchAccessor _catchAccessor = catchAccessor;
     private readonly ISpeciesAccessor _speciesAccessor = speciesAccessor;
     private readonly ISpotAccessor _spotAccessor = spotAccessor;
     private readonly IBaitAccessor _baitAccessor = baitAccessor;
+    private readonly IWeatherEngine _weatherEngine = weatherEngine;
 
     public async Task<List<CatchResponseDto>> GetAllByUserAsync(int userId)
     {
@@ -48,6 +51,8 @@ public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor species
                 throw new BaitNotFoundException(createCatchDto.BaitId.Value);
         }
 
+        var weather = await _weatherEngine.GetSnapshotAsync(createCatchDto.Latitude, createCatchDto.Longitude, createCatchDto.CaughtAt);
+
         var catchEntity = new Catch
         {
             UserId = userId,
@@ -60,6 +65,11 @@ public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor species
             WeightLbs = createCatchDto.WeightLbs,
             WeightMethod = createCatchDto.WeightMethod,
             LengthInches = createCatchDto.LengthInches,
+            AirTempF = weather?.AirTempF,
+            WindSpeedMph = weather?.WindSpeedMph,
+            WindDirection = weather?.WindDirection,
+            PressureMb = weather?.PressureMb,
+            SkyCondition = weather?.SkyCondition,
             WaterTempF = createCatchDto.WaterTempF,
             Notes = createCatchDto.Notes
         };
@@ -70,6 +80,10 @@ public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor species
     
     public async Task<CatchResponseDto?> UpdateAsync(int catchId, UpdateCatchDto updateCatchDto, int userId)
     {
+        var existing = await _catchAccessor.GetByIdAsync(catchId, userId);
+        if (existing == null)
+            return null;
+
         var species = await _speciesAccessor.GetByIdAsync(updateCatchDto.SpeciesId);
         if (species == null)
             throw new SpeciesNotFoundException(updateCatchDto.SpeciesId);
@@ -88,6 +102,16 @@ public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor species
                 throw new BaitNotFoundException(updateCatchDto.BaitId.Value);
         }
 
+        // Only hit the weather API when the conditions the weather was fetched
+        // for have changed; otherwise carry the stored snapshot forward.
+        var weatherStale = existing.Latitude != updateCatchDto.Latitude
+            || existing.Longitude != updateCatchDto.Longitude
+            || existing.CaughtAt != updateCatchDto.CaughtAt;
+
+        var weather = weatherStale
+            ? await _weatherEngine.GetSnapshotAsync(updateCatchDto.Latitude, updateCatchDto.Longitude, updateCatchDto.CaughtAt)
+            : new WeatherSnapshot(existing.AirTempF, existing.WindSpeedMph, existing.WindDirection, existing.PressureMb, existing.SkyCondition);
+
         var catchEntity = new Catch
         {
             Id = catchId,
@@ -101,8 +125,14 @@ public class CatchManager(ICatchAccessor catchAccessor, ISpeciesAccessor species
             WeightLbs = updateCatchDto.WeightLbs,
             WeightMethod = updateCatchDto.WeightMethod,
             LengthInches = updateCatchDto.LengthInches,
+            AirTempF = weather?.AirTempF,
+            WindSpeedMph = weather?.WindSpeedMph,
+            WindDirection = weather?.WindDirection,
+            PressureMb = weather?.PressureMb,
+            SkyCondition = weather?.SkyCondition,
             WaterTempF = updateCatchDto.WaterTempF,
-            Notes = updateCatchDto.Notes
+            Notes = updateCatchDto.Notes,
+            PhotoUrl = existing.PhotoUrl
         };
 
         var updated = await _catchAccessor.UpdateAsync(catchEntity);
