@@ -2,6 +2,7 @@ import {
   AuthClient,
   BaitClient,
   CatchClient,
+  InsightsClient,
   SpeciesClient,
   SpotClient,
 } from './generated'
@@ -22,6 +23,7 @@ function withReviver<T>(client: T): T {
 export const authClient = withReviver(new AuthClient(baseUrl, http))
 export const baitClient = withReviver(new BaitClient(baseUrl, http))
 export const catchClient = withReviver(new CatchClient(baseUrl, http))
+export const insightsClient = withReviver(new InsightsClient(baseUrl, http))
 export const speciesClient = withReviver(new SpeciesClient(baseUrl, http))
 export const spotClient = withReviver(new SpotClient(baseUrl, http))
 
