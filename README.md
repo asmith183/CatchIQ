@@ -4,11 +4,28 @@
 A fishing catch tracking app. Log catches with species, bait, weather, and location data, then use AI
 analytics over your catch history to find patterns and catch more fish.
 
+## Features
+
+- **Dashboard** — totals, personal bests by species, best spot, recent catches, and a saved-spots map at a glance
+- **Catch logging** — species, bait, and spot pickers; location comes from the device via the browser
+  Geolocation API, and the weather at that moment (air temp, wind, pressure, sky) is auto-filled from Open-Meteo
+- **AI Insights** — Claude analyzes the full catch log and writes personalized best time of day, best bait,
+  and best conditions breakdowns plus a summary
+- **History, spots, and map** — searchable catch history, saved spots, and an interactive Leaflet map
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+![AI Insights](docs/screenshots/insights.png)
+
 ## Tech stack
 
-**Backend:** .NET 10, ASP.NET Core Web API, EF Core 10, SQL Server, ASP.NET Identity + JWT, Swashbuckle
+**Backend:** .NET 10, ASP.NET Core Web API, EF Core 10, SQL Server, ASP.NET Identity + JWT, Swashbuckle,
+Anthropic C# SDK
 
-**Frontend:** React 19, TypeScript, Vite 8, Tailwind 4, React Router 7, NSwag
+**Frontend:** React 19, TypeScript, Vite 8, Tailwind 4, React Router 7, React Leaflet, NSwag
+
+**External services:** [Open-Meteo](https://open-meteo.com) (weather at catch time),
+[Claude](https://claude.com/platform/api) (insight generation), OpenStreetMap tiles, browser Geolocation API
 
 **Tooling:** GitHub Actions CI
 
@@ -66,19 +83,25 @@ Later runs: `docker start catchiq-mssql`.
 }
 ```
 
-**3. Apply migrations:**
+**3. Set the Anthropic API key** (optional — everything but Insights works without it):
+
+```bash
+cd backend && dotnet user-secrets set "Anthropic:ApiKey" "your-api-key"
+```
+
+**4. Apply migrations:**
 
 ```bash
 cd backend && dotnet ef database update
 ```
 
-**4. Set up the frontend env** (also gitignored; without it every API call hits the wrong URL):
+**5. Set up the frontend env** (also gitignored; without it every API call hits the wrong URL):
 
 ```bash
 cd frontend && cp .env.example .env
 ```
 
-**5. Run both:**
+**6. Run both:**
 
 ```bash
 cd backend && dotnet run --launch-profile http   # http://localhost:5045
