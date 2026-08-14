@@ -11,7 +11,11 @@ analytics over your catch history to find patterns and catch more fish.
   Geolocation API, and the weather at that moment (air temp, wind, pressure, sky) is auto-filled from Open-Meteo
 - **AI Insights** — Claude analyzes the full catch log and writes personalized best time of day, best bait,
   and best conditions breakdowns plus a summary
-- **History, spots, and map** — searchable catch history, saved spots, and an interactive Leaflet map
+- **History** - searchable catch history
+
+## Planned Features
+
+- **Spots and Map** — save and edit custom spots, and an interactive Leaflet map
 
 ![Dashboard](docs/screenshots/dashboard.png)
 
