@@ -13,13 +13,13 @@ analytics over your catch history to find patterns and catch more fish.
   and best conditions breakdowns plus a summary
 - **History** - searchable catch history
 
-## Planned Features
-
-- **Spots and Map** — save and edit custom spots, and an interactive Leaflet map
-
 ![Dashboard](docs/screenshots/dashboard.png)
 
 ![AI Insights](docs/screenshots/insights.png)
+
+## Planned Features
+
+- **Spots and Map** — save and edit custom spots, and an interactive Leaflet map
 
 ## Tech stack
 
