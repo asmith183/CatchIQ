@@ -14,6 +14,7 @@ using CatchIQ.API.Managers.Interfaces;
 using CatchIQ.API.Managers;
 using CatchIQ.API.Accessors.Interfaces;
 using CatchIQ.API.Accessors;
+using Anthropic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,11 +43,21 @@ builder.Services.AddScoped<ISpeciesManager, SpeciesManager>();
 builder.Services.AddScoped<ICatchManager, CatchManager>();
 builder.Services.AddScoped<ISpotManager, SpotManager>();
 builder.Services.AddScoped<IBaitManager, BaitManager>();
+builder.Services.AddScoped<IInsightsManager, InsightsManager>();
+builder.Services.AddMemoryCache();
 
 // Engines
 builder.Services.AddScoped<ITokenEngine, TokenEngine>();
 builder.Services.AddHttpClient<IWeatherEngine, WeatherEngine>(client =>
     client.Timeout = TimeSpan.FromSeconds(10));
+
+// The Anthropic SDK manages its own HTTP transport, so the client is a plain
+// singleton rather than going through AddHttpClient.
+builder.Services.AddSingleton(new AnthropicClient
+{
+    ApiKey = builder.Configuration["Anthropic:ApiKey"]
+});
+builder.Services.AddScoped<IInsightsEngine, InsightsEngine>();
 
 // JWT
 builder.Services.AddAuthentication(options =>
