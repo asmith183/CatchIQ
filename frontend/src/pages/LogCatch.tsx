@@ -71,7 +71,9 @@ function LogCatch() {
     const [longitude, setLongitude] = useState('');
     const [notes, setNotes] = useState('');
 
-    const [coordsSource, setCoordsSource] = useState<CoordsSource>('pending');
+    const [coordsSource, setCoordsSource] = useState<CoordsSource>(() =>
+        'geolocation' in navigator ? 'pending' : 'unavailable'
+    );
     const [saving, setSaving] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -81,7 +83,6 @@ function LogCatch() {
 
     useEffect(() => {
         if (!('geolocation' in navigator)) {
-            setCoordsSource('unavailable');
             return;
         }
 
