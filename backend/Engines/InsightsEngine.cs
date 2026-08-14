@@ -24,12 +24,12 @@ public class InsightsEngine(AnthropicClient client, ILogger<InsightsEngine> logg
         Branched Oak. Soft plastics outperform in warmer afternoon conditions."
 
         Fill each field as follows:
-        - bestTimeOfDay: when this angler catches the most (and biggest) fish, 2-3 sentences.
-        - bestBait: their most productive bait and the context it works best in, 2-3 sentences.
+        - bestTimeOfDay: when this angler catches the most (and biggest) fish, 1-2 sentences.
+        - bestBait: their most productive bait and the context it works best in, 1-2 sentences.
         - bestConditions: the weather, sky, and pressure conditions their catches cluster
-          around, 2-3 sentences.
-        - summary: one paragraph (4-6 sentences) tying together their overall tendencies
-          across species, spots, baits, timing, and conditions.
+          around, 1-2 sentences.
+        - summary: one short paragraph (3-4 sentences) tying together their overall
+          tendencies across species, spots, baits, timing, and conditions.
 
         Write directly to the angler ("you", "your"). Ground every claim in the data
         provided - cite spot names, bait names, and counts where they help - and never
@@ -45,7 +45,13 @@ public class InsightsEngine(AnthropicClient client, ILogger<InsightsEngine> logg
                 Model = "claude-sonnet-5",
                 MaxTokens = 16000,
                 System = SystemPrompt,
-                OutputConfig = new OutputConfig { Format = new JsonOutputFormat { Schema = BuildSchema() } },
+                // Low effort keeps adaptive thinking short — the default (high) spent
+                // ~10K thinking tokens (~$0.12, ~1 min) summarizing 44 catches.
+                OutputConfig = new OutputConfig
+                {
+                    Format = new JsonOutputFormat { Schema = BuildSchema() },
+                    Effort = Effort.Low
+                },
                 Messages = [new() { Role = Role.User, Content = catchDataJson }]
             });
 
