@@ -12,14 +12,12 @@ analytics over your catch history to find patterns and catch more fish.
 - **AI Insights** — Claude analyzes the full catch log and writes personalized best time of day, best bait,
   and best conditions breakdowns plus a summary
 - **History** - searchable catch history
+- **Spots** — save, edit, and delete custom fishing spots
+- **Map** — interactive Leaflet map of your spots and every catch, with per-spot catch counts and best catch
 
 ![Dashboard](docs/screenshots/dashboard.png)
 
 ![AI Insights](docs/screenshots/insights.png)
-
-## Planned Features
-
-- **Spots and Map** — save and edit custom spots, and an interactive Leaflet map
 
 ## Tech stack
 
